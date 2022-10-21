@@ -10,8 +10,9 @@ nunjucks.configure('views', {
     autoescape: true,
     express: app
 });
-
 app.set('view engine', 'html');
+
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/public', express.static('public'));
 
