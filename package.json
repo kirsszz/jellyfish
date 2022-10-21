@@ -1,0 +1,25 @@
+{
+  "name": "jellyfish",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kirsszz/jellyfish.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kirsszz/jellyfish/issues"
+  },
+  "homepage": "https://github.com/kirsszz/jellyfish#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "nunjucks": "^3.2.3"
+  }
+}
