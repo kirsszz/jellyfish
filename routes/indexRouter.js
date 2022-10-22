@@ -1,14 +1,19 @@
 const express = require('express');
-const router = express.Router()
+const router = express.Router();
+const passport = require('../utils/login');
+const validator = require('../utils/validators');
+
 
 router.get('/', (req, res) => {
     res.render('login')
 });
 
-router.post('/signin', (req, res) => {
-    const { username, password } = req.body;
+router.post('/signin', validator.signin, passport.authenticate('customAuth', { failureRedirect: '/signin' }), (req, res) => {
+    res.redirect('/jelly')
+});
 
-    res.redirect('/')
+router.get('/register', (req, res) => {
+    res.render('register');
 });
 
 module.exports = router;

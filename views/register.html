@@ -5,8 +5,7 @@
     <div class="has-text-centered">
         <img class="login--logo" src="/public/pictures/jellyfish-logo-png-01.png" alt="">
     </div>
-    <h1 class="login--title has-text-centered">Please log in to continue!</h1>
-    <form action="/signin" method="POST">
+    <form action="/registrer" method="POST">
         <div class="field">
             <label class="label">Username</label>
             <div class="control">
@@ -19,9 +18,14 @@
                 <input class="input" type="password" placeholder="password" name="password">
             </div>
         </div>
-        <div class="has-text-right">
-            <button class="button is-primary">Log in</button>
-            <div class="has-text-link"><a href="/register">Register</a></div>
+        <div class="field">
+            <label class="label">Repeat password</label>
+            <div class="control">
+                <input class="input" type="password" placeholder="password" name="repeatPassword">
+            </div>
+        </div>
+        <div>
+            <button class="button is-primary">Register</button>
         </div>
     </form>
 </div>
