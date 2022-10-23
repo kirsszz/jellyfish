@@ -6,6 +6,7 @@ const session = require('express-session');
 
 const indexRoutes = require('./routes/indexRouter');
 const jellyRoutes = require('./routes/jellyRouter');
+const { isLoggedIn } = require('./utils/middlewares');
 
 const port = process.env.PORT || 3000;
 
@@ -26,7 +27,7 @@ app.use(session({
 }));
 
 app.use('/', indexRoutes);
-app.use('/jelly', jellyRoutes);
+app.use('/jelly', isLoggedIn, jellyRoutes);
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)

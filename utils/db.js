@@ -9,9 +9,21 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-module.exports.findUserFromDb = (username) => {
+module.exports.findUser = (username) => {
     return new Promise((resolve, reject) => {
         pool.query("SELECT * FROM users WHERE username=?", [username], function (err, rows, fields) {
+            // Connection is automatically released when query resolves
+            if (err) {
+                return reject(err);
+            }
+
+            return resolve(rows);
+        })
+    });
+};
+module.exports.saveUser = (username, password) => {
+    return new Promise((resolve, reject) => {
+        pool.execute("INSERT INTO users (username, password) VALUES (? ?)", [username, password], function (err, rows, fields) {
             // Connection is automatically released when query resolves
             if (err) {
                 return reject(err);

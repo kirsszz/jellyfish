@@ -1,7 +1,7 @@
 const passport = require('passport');
 const passportCustom = require('passport-custom');
 const CustomStrategy = passportCustom.Strategy;
-const { findUserFromDB } = require('./db');
+const { findUser } = require('./db');
 const bcrypt = require('bcrypt');
 
 passport.use('customAuth', new CustomStrategy(
@@ -10,7 +10,7 @@ passport.use('customAuth', new CustomStrategy(
             const { username, password } = req.body;
             //find user from db
             //if found, check password
-            const foundUser = findUserFromDB(username);
+            const foundUser = findUser(username);
 
             if (foundUser.length === 0) {
                 throw new Error('no users found');

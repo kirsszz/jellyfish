@@ -16,4 +16,15 @@ router.get('/register', (req, res) => {
     res.render('register');
 });
 
+router.post('/register', validator.register, (req, res) => {
+    res.redirect('/register');
+});
+
+router.post('/logout', function (req, res, next) {
+    req.logout(function (err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
+});
+
 module.exports = router;

@@ -5,23 +5,23 @@
     <div class="has-text-centered">
         <img class="login--logo" src="/public/pictures/jellyfish-logo-png-01.png" alt="">
     </div>
-    <form action="/registrer" method="POST">
+    <form action="/register" method="POST">
         <div class="field">
             <label class="label">Username</label>
             <div class="control">
-                <input class="input" type="text" placeholder="username" name="username">
+                <input class="input" type="text" minlength="3" maxlength="50" placeholder="username" name="username">
             </div>
         </div>
         <div class="field">
             <label class="label">Password</label>
             <div class="control">
-                <input class="input" type="password" placeholder="password" name="password">
+                <input class="input" type="password" minlength="8" placeholder="password" name="password">
             </div>
         </div>
         <div class="field">
             <label class="label">Repeat password</label>
             <div class="control">
-                <input class="input" type="password" placeholder="password" name="repeatPassword">
+                <input class="input" type="password" minlength="8" placeholder="password" name="repeatPassword">
             </div>
         </div>
         <div>
