@@ -1,23 +1,39 @@
 const express = require('express');
+const { saveUser } = require('../utils/db');
 const router = express.Router();
 const passport = require('../utils/login');
 const validator = require('../utils/validators');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 
 router.get('/', (req, res) => {
-    res.render('login')
+    res.render('signin');
 });
 
 router.post('/signin', validator.signin, passport.authenticate('customAuth', { failureRedirect: '/signin' }), (req, res) => {
-    res.redirect('/jelly')
+    res.redirect('/jelly');
 });
 
 router.get('/register', (req, res) => {
     res.render('register');
 });
 
-router.post('/register', validator.register, (req, res) => {
-    res.redirect('/register');
+router.post('/register', validator.register, async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        bcrypt.hash(password, saltRounds, async function (err, hash) {
+            if (err) {
+                throw new Error(err);
+            }
+
+            await saveUser(username, hash);
+        });
+
+        res.redirect('/');
+    } catch (e) {
+        next(e);
+    }
 });
 
 router.post('/logout', function (req, res, next) {

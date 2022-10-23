@@ -1,32 +1,30 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="column is-5-tablet is-4-desktop is-4-widescreen has-text-left box login">
-    <div class="has-text-centered">
-        <img class="login--logo" src="/public/pictures/jellyfish-logo-png-01.png" alt="">
-    </div>
-    <form action="/register" method="POST">
-        <div class="field">
-            <label class="label">Username</label>
-            <div class="control">
-                <input class="input" type="text" minlength="3" maxlength="50" placeholder="username" name="username">
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Password</label>
-            <div class="control">
-                <input class="input" type="password" minlength="8" placeholder="password" name="password">
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Repeat password</label>
-            <div class="control">
-                <input class="input" type="password" minlength="8" placeholder="password" name="repeatPassword">
-            </div>
-        </div>
-        <div>
-            <button class="button is-primary">Register</button>
-        </div>
-    </form>
+<div class="has-text-centered">
+    <img class="login--logo" src="/public/pictures/jellyfish-logo-png-01.png" alt="">
 </div>
+<form action="/register" method="POST">
+    <div class="field">
+        <label class="label">Username</label>
+        <div class="control">
+            <input class="input" type="text" minlength="3" maxlength="50" placeholder="username" name="username">
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+            <input class="input" type="password" minlength="8" placeholder="password" name="password">
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Repeat password</label>
+        <div class="control">
+            <input class="input" type="password" minlength="8" placeholder="password" name="repeatPassword">
+        </div>
+    </div>
+    <div>
+        <button class="button is-primary">Register</button>
+    </div>
+</form>
 {% endblock %}

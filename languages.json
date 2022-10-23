@@ -1,0 +1,14 @@
+{
+    "est": {
+        "translation": {
+            "username": "Kasutajanimi",
+            "password": "Parool"
+        }
+    },
+    "en": {
+        "translation": {
+            "username": "Username",
+            "password": "Password"
+        }
+    }
+}

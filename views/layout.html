@@ -15,11 +15,14 @@
         <div class="hero-body">
             <div class="container ">
                 <div class="columns is-centered">
-                    {% block body %}{% endblock %}
+                    <div class="column is-5-tablet is-4-desktop is-4-widescreen has-text-left box">
+                        {% block body %}{% endblock %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
 </body>
 
 </html>
