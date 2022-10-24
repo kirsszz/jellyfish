@@ -38,6 +38,14 @@ i18next.init({
 app.use('/', indexRoutes);
 app.use('/jelly', isLoggedIn, jellyRoutes);
 
+app.use((err, req, res, next) => {
+    if (res.headersSent) {
+        return next(err);
+    }
+    console.error('ERROR', err);
+    return res.send('Oh nooo... ')
+})
+
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
 });

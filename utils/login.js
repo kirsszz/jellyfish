@@ -10,7 +10,7 @@ passport.use('customAuth', new CustomStrategy(
             const { username, password } = req.body;
             //find user from db
             //if found, check password
-            const foundUser = findUser(username);
+            const foundUser = await findUser(username);
 
             if (foundUser.length === 0) {
                 throw new Error('no users found');
@@ -22,16 +22,16 @@ passport.use('customAuth', new CustomStrategy(
                     }
                     if (!result) {
                         throw new Error('wrong password');
+                    } else {
+                        const userObject = {
+                            username
+                        };
+
+                        return done(null, userObject)
                     }
                 });
+
             }
-
-            const userObject = {
-                username
-            };
-
-            return done(null, userObject)
-
         } catch (e) {
             return done(null, null)
         }

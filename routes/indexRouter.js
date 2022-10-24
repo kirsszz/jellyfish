@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     res.render('signin');
 });
 
-router.post('/signin', validator.signin, passport.authenticate('customAuth', { failureRedirect: '/signin' }), (req, res) => {
+router.post('/signin', validator.signin, passport.authenticate('customAuth', { failureRedirect: '/' }), (req, res) => {
     res.redirect('/jelly');
 });
 
@@ -19,15 +19,18 @@ router.get('/register', (req, res) => {
     res.render('register');
 });
 
-router.post('/register', validator.register, async (req, res) => {
+router.post('/register', validator.register, async (req, res, next) => {
     try {
         const { username, password } = req.body;
         bcrypt.hash(password, saltRounds, async function (err, hash) {
             if (err) {
                 throw new Error(err);
             }
-
-            await saveUser(username, hash);
+            try {
+                await saveUser(username, hash);
+            } catch (e) {
+                throw new Error(e);
+            }
         });
 
         res.redirect('/');
