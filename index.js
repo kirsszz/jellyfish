@@ -4,6 +4,9 @@ const app = express();
 const nunjucks = require('nunjucks');
 const session = require('express-session');
 const i18next = require('i18next');
+const cookieParser = require('cookie-parser');
+const flash = require('req-flash');
+const passport = require('./utils/login');
 
 const indexRoutes = require('./routes/indexRouter');
 const jellyRoutes = require('./routes/jellyRouter');
@@ -23,11 +26,24 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/public', express.static('public'));
 
+app.use(cookieParser());
+
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
 }));
+
+app.use(passport.authenticate('session'));
+
+app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
+
 
 i18next.init({
     lng: 'en',

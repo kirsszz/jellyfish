@@ -38,6 +38,8 @@ module.exports.register = [
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            console.log(errors.errors[0])
+            req.flash('error', errors.errors[0].msg);
             return res.redirect('/register');
         }
         next();

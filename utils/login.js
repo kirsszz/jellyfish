@@ -4,6 +4,22 @@ const CustomStrategy = passportCustom.Strategy;
 const { findUser } = require('./db');
 const bcrypt = require('bcrypt');
 
+function checkPassword(password, dbPassword) {
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(password, dbPassword, function (err, result) {
+            // result == true
+            if (err) {
+                return reject(err);
+            }
+            if (!result) {
+                return reject('Wrong password');
+            } else {
+                return resolve(result);
+            }
+        });
+    });
+}
+
 passport.use('customAuth', new CustomStrategy(
     async function (req, done) {
         try {
@@ -13,24 +29,14 @@ passport.use('customAuth', new CustomStrategy(
             const foundUser = await findUser(username);
 
             if (foundUser.length === 0) {
-                throw new Error('no users found');
+                throw new Error('No users found');
             } else {
-                bcrypt.compare(password, foundUser[0].password, function (err, result) {
-                    // result == true
-                    if (err) {
-                        throw new Error(err);
-                    }
-                    if (!result) {
-                        throw new Error('wrong password');
-                    } else {
-                        const userObject = {
-                            username
-                        };
+                await checkPassword(password, foundUser[0].password);
+                const userObject = {
+                    username
+                };
 
-                        return done(null, userObject)
-                    }
-                });
-
+                return done(null, userObject);
             }
         } catch (e) {
             return done(null, null)

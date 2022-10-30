@@ -6,6 +6,17 @@ const validator = require('../utils/validators');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+function hashPassword(password) {
+    return new Promise((resolve, reject) => {
+        bcrypt.hash(password, saltRounds, async function (err, hash) {
+            if (err) {
+                return reject(err)
+            }
+            resolve(hash)
+        });
+    });
+}
+
 
 router.get('/', (req, res) => {
     res.render('signin');
@@ -22,17 +33,10 @@ router.get('/register', (req, res) => {
 router.post('/register', validator.register, async (req, res, next) => {
     try {
         const { username, password } = req.body;
-        bcrypt.hash(password, saltRounds, async function (err, hash) {
-            if (err) {
-                throw new Error(err);
-            }
-            try {
-                await saveUser(username, hash);
-            } catch (e) {
-                throw new Error(e);
-            }
-        });
+        const hashedPw = await hashPassword(password);
+        await saveUser(username, hashedPw);
 
+        req.flash('success', 'User is successfully registered');
         res.redirect('/');
     } catch (e) {
         next(e);

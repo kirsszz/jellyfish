@@ -16,6 +16,11 @@
             <div class="container ">
                 <div class="columns is-centered">
                     <div class="column is-5-tablet is-4-desktop is-4-widescreen has-text-left box">
+                        {% if error %}
+                        {% include "./partials/messages/error.html"%}
+                        {% elif success %}
+                        {% include "./partials/messages/success.html"%}
+                        {% endif %}
                         {% block body %}{% endblock %}
                     </div>
                 </div>
